@@ -141,8 +141,7 @@ Once you have the keys, you can input them directly in the corresponding scripts
 ## Project Structure
 
 Below is the structure of the `Pollyhop` project. This structure includes the necessary files and directories to run the sentiment analysis tool.
-
-Pollyhop/ ├── app.py # Main Flask application file that runs the web server and handles routes. ├── test4.py # Python script for combining polling and sentiment data, and calculating predictions. ├── candidate_latest_polls2.py # Script for fetching the latest polling data. ├── predict_party_votes_percentage4.py # Script for predicting party vote percentages based on historical data. ├── average_sentiment_by_state.py # Script for performing sentiment analysis by state. ├── bing_average_sentiment_by_state.py # Script for Bing News sentiment analysis by state. ├── requirements.txt # List of required Python packages for the project. ├── README.md # Documentation and instructions for the project. ├── static/ # Static files (e.g., CSS, images). │ ├── images/ # Image assets used by the app. │ └── styles.css # Custom CSS styling for the web app. ├── templates/ # HTML templates for the Flask app. │ ├── index.html # Main HTML file for the homepage. │ └── candidate.html # Detailed sentiment analysis view for each candidate. ├── data/ # Directory containing data-related files. │ ├── final_sentiment_score.csv # File for storing final combined sentiment scores. │ ├── combined_data_intermediate.csv # Intermediate file storing combined data. │ └── final_predicted_percentages_normalized.csv # Final predicted voting percentages. └── data1/ # Directory for storing additional sentiment and state-based data. ├── bing_average_sentiment_by_state.csv # Bing sentiment data by state. └── average_sentiment_by_state_candidate.csv # Reddit sentiment data by state.
+![Project Structure](static/images/projectstructureimg1.png)
 
 
 ### Key Files and Directories
