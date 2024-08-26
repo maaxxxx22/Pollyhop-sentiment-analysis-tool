@@ -89,7 +89,7 @@ http://127.0.0.1:5000/
    The progress bar will show real-time updates during the data fetching process.
 
 5. **Data Analysis**:
-   After fetching the new data or uploading a CSV, the application will analyze the data and calculate the combined average sentiment score and predictions.
+   After fetching the new data or uploading a CSV, click on the analyze button, the application will analyze the data and calculate the combined average sentiment score and predictions.
 
 6. **Viewing Results**:
    You can view the results in a user-friendly table on the main dashboard.  
