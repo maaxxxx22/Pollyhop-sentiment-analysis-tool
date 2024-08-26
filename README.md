@@ -53,10 +53,12 @@ To install and run the Pollyhop Sentiment Analysis Tool on another machine, foll
 
 5. **Install Dependencies: 
    - Navigate to the project directory and run:
+   ```bash
    pip install -r requirements.txt
 
 6. **Run the Application: 
    - Once dependencies are installed, start the Flask server by running:
+   ```bash
    python app.py
 
 7. **Access the Web Application: Open your browser and navigate to http://127.0.0.1:5000/ to view the dashboard and start    using the tool.
