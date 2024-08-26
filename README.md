@@ -81,7 +81,7 @@ After completing the installation steps, you can run the `Pollyhop` project to p
 http://127.0.0.1:5000/
 
 3. **Upload CSV File for Analysis**:
-   You can upload a CSV file containing sentiment data for analysis through the web interface.  
+   You can upload the "final_predicted_percentages_normalized" CSV file that can be found in the root directory of the app folder containing sentiment data for analysis through the web interface.  
    The CSV file should contain columns like `average_sentiment_1`, `average_sentiment_2`, and `predicted_pct`.
 
 4. **Fetching New Data**:
