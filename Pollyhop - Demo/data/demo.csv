@@ -1,0 +1,5 @@
+candidate_name,party,pct,average_sentiment_1,average_sentiment_2,predicted_pct
+Joe Biden,DEM,51,0.2,0.4,52
+Donald Trump,REP,49,0.1,0.5,48
+Kamala Harris,DEM,45,0.3,0.6,46
+Bernie Sanders,IND,40,0.5,0.7,44
