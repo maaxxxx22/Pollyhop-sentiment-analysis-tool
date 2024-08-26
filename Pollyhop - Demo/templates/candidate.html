@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sentiment Analysis for {{ name }}</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <style>
+    body {
+        background-image: url('/static/images/greystats.jpg'); /* Same background as index page */
+        background-size: cover;
+        background-position: center;
+        font-family: 'Comic Sans MS', sans-serif;
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+    }
+
+    .overlay {
+        background-color: rgba(255, 255, 255, 0.9); /* Same color and opacity as index overlay */
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        width: 90%;
+        max-width: 1200px;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        margin-top: 20px;
+    }
+
+    .header {
+        background-color: #003366; /* Same header color as index page */
+        padding: 20px;
+        color: white;
+        text-align: center;
+        border-radius: 10px 10px 0 0;
+        width: 100%;
+        position: relative;
+    }
+
+    .header h2 {
+        margin: 0;
+    }
+
+    .chart-container, .map-container, .line-chart-container {
+        padding: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: auto;
+    }
+
+    .chart-container canvas, .map-container div, .line-chart-container canvas {
+        max-width: 800px;
+        width: 100%;
+        height: 100%;
+    }
+
+    #usMap {
+        width: 100%;
+        height: 500px;
+    }
+</style>
+
+
+<body>
+    <div class="overlay">
+        <div class="header">
+            <h2>Sentiment Analysis for {{ name }}</h2>
+        </div>
+        <div class="chart-container">
+            <canvas id="sentimentChart"></canvas>
+        </div>
+        <div class="map-container">
+            <div id="usMap"></div>
+        </div>
+        <div class="line-chart-container">
+            <canvas id="lineChart"></canvas>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var ctx = document.getElementById('sentimentChart').getContext('2d');
+
+            // Prepare the datasets
+            var datasets = [];
+            {% for col in sentiment_columns %}
+            console.log("Dataset for {{ col }}:", {{ data.sentiments[col] | tojson }});
+            datasets.push({
+                label: '{{ col }}',
+                data: {{ data.sentiments[col] | tojson }},
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+            });
+            {% endfor %}
+
+            var chart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: {{ data.states | tojson }},
+                    datasets: datasets
+                },
+                options: {
+                    scales: {
+                        x: {
+                            ticks: {
+                                autoSkip: false,
+                                maxRotation: 90,
+                                minRotation: 45
+                            }
+                        },
+                        y: {
+                            beginAtZero: true
+                        }
+                    },
+                    maintainAspectRatio: false, /* Ensures bar chart fits correctly */
+                }
+            });
+
+            // Prepare the map data
+            var mapData = {{ map_data | tojson }};
+            var states = mapData.map(item => item.state);
+            var sentiment1 = mapData.map(item => item['combined_ave_score 3']);
+            var sentiment2 = mapData.map(item => item['combined_ave_score 4']);
+
+            console.log("Map States:", states);
+            console.log("Map Sentiment 1:", sentiment1);
+            console.log("Map Sentiment 2:", sentiment2);
+
+            var hoverText = states.map((state, index) =>
+                `State: ${state}<br>Sentiment Score 1: ${sentiment1[index]}<br>Sentiment Score 2: ${sentiment2[index]}`
+            );
+
+            var data = [{
+                type: 'choropleth',
+                locationmode: 'USA-states',
+                locations: states,
+                z: sentiment1,
+                text: hoverText,
+                colorscale: [
+                    [0, 'rgb(242,240,247)'], [0.2, 'rgb(218,218,235)'],
+                    [0.4, 'rgb(188,189,220)'], [0.6, 'rgb(158,154,200)'],
+                    [0.8, 'rgb(117,107,177)'], [1, 'rgb(84,39,143)']
+                ],
+                colorbar: {
+                    title: 'Sentiment Score'
+                },
+                marker: {
+                    line: {
+                        color: 'rgb(255,255,255)',
+                        width: 2
+                    }
+                },
+                hoverinfo: 'text+location+z',
+                hovertext: hoverText
+            }];
+
+            var layout = {
+                title: 'Sentiment Score by State',
+                geo: {
+                    scope: 'usa',
+                    projection: {
+                        type: 'albers usa'
+                    },
+                    showlakes: true,
+                    lakecolor: 'rgb(255,255,255)',
+                    showland: true,
+                    landcolor: 'rgb(217, 217, 217)',
+                    subunitwidth: 1,
+                    subunitcolor: 'rgb(255,255,255)'
+                }
+            };
+
+            Plotly.newPlot('usMap', data, layout);
+
+            // Add state abbreviations
+            Plotly.addTraces('usMap', {
+                type: 'scattergeo',
+                locationmode: 'USA-states',
+                locations: states,
+                text: states,
+                mode: 'text'
+            });
+
+            // Line chart for candidate's overall sentiment score over time
+            var lineCtx = document.getElementById('lineChart').getContext('2d');
+            var candidateData = {{ candidate_sentiment | tojson }};
+            var labels = Object.keys(candidateData).sort();
+            var sentimentScores = labels.map(label => candidateData[label]);
+
+            var lineChart = new Chart(lineCtx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Overall Sentiment Score',
+                        data: sentimentScores,
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 1,
+                        fill: false
+                    }]
+                },
+                options: {
+                    scales: {
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Date'
+                            }
+                        },
+                        y: {
+                            title: {
+                                display: true,
+                                text: 'Sentiment Score'
+                            },
+                            beginAtZero: true
+                        }
+                    },
+                    maintainAspectRatio: false /* Ensures line chart fits correctly */
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

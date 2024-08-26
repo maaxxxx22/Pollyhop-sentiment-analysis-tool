@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pollyhop</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+    <style>
+        body {
+            background-image: url('/static/images/greystats.jpg');
+            background-size: cover;
+            background-position: center;
+            font-family: 'Comic Sans MS', sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        /* Transparent demo overlay positioned below the original overlay */
+.demo-full-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 0; /* Place it below the original overlay */
+    pointer-events: none; /* Allow clicks to pass through */
+}
+
+/* Centered content inside the demo overlay */
+.demo-content {
+    text-align: center;
+}
+
+/* Demo text styling */
+.demo-text {
+    font-size: 100px;
+    color: rgba(0, 0, 0, 0.1); /* Faint color */
+    font-family: 'Comic Sans MS', sans-serif;
+}
+
+
+
+        .overlay {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 90%;
+            max-width: 1200px;
+        }
+
+        .header {
+            background-color: #003366;
+            padding: 10px;
+            color: white;
+            display: flex;
+            align-items: center;
+            font-family: 'Comic Sans MS', sans-serif;
+            border-radius: 10px 10px 0 0;
+        }
+
+        .header h2 {
+            margin: 0;
+            flex-grow: 1;
+        }
+
+        .search-bar-container {
+            display: flex;
+            align-items: center;
+            background-color: white;
+            border-radius: 5px;
+            overflow: hidden;
+            width: 400px;
+        }
+
+        .search-bar {
+            border: none;
+            padding: 5px 10px;
+            flex-grow: 1;
+        }
+
+        .search-bar:focus {
+            outline: none;
+        }
+
+        .search-icon {
+            background-color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+
+        .search-icon img {
+            width: 20px;
+            height: 20px;
+        }
+
+        .column-green {
+            background-color: #8FBC8F;
+        }
+
+        .column-purple {
+            background-color: #9370DB;
+        }
+
+        .column-orange {
+            background-color: #FFA07A;
+        }
+
+        table.dataTable {
+            border-spacing: 10px 0;
+            border-collapse: separate;
+            border: none;
+            width: 100%;
+        }
+
+        table.dataTable tbody td,
+        table.dataTable thead th {
+            padding: 8px;
+            border: none;
+        }
+
+        .candidate-thumbnail {
+            width: 40px;
+            height: 40px;
+            border-radius: 5px; /* Reduced or no border radius for a square image */ 
+            margin-right: 10px;
+            object-fit: cover;
+        }
+
+        .candidate-cell {
+            display: flex;
+            align-items: center;
+        }
+
+        .candidate-link {
+            color: #003366;
+            text-decoration: none;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+        }
+
+        .button-group button {
+            flex-grow: 1;
+            font-size: 1em;
+        }
+
+        .leading-candidates-container {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .candidate-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .candidate-card img {
+            width: 100px;
+            height: 100px;
+            border-radius: 5px;
+            object-fit: cover;
+            margin-bottom: 10px;
+        }
+
+        .vs-text {
+            font-size: 36px;
+            font-weight: bold;
+        }
+
+        .summary-vs-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .summary-container {
+            width: 60%;
+        }
+
+        .leading-candidates-section {
+            width: 40%;
+            text-align: center;
+        }
+        .disabled-btn {
+            pointer-events: none; /* Disable click */
+            opacity: 0.6; /* Reduce opacity to give it a greyed-out look */
+        }    
+         
+
+
+    </style>
+</head>
+
+<body>
+
+    <!-- Demo Overlay (positioned under the original overlay) -->
+    <div class="demo-full-overlay">
+        <div class="demo-content">
+            <h1 class="demo-text">-Demo-</h1>
+        </div>
+    </div>
+
+    <div class="overlay">
+        <div class="header">
+            <h2>Pollyhop</h2>
+            <div class="search-bar-container">
+                <input type="text" id="table-search" class="form-control search-bar" placeholder="Search for candidate">
+                <button class="search-icon">
+                    <img src="https://img.icons8.com/ios-filled/50/000000/search.png" alt="Search">
+                </button>
+            </div>
+        </div>
+        <div class="container">
+            <form id="upload-form" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="file">Upload CSV file:</label>
+                    <input type="file" class="form-control" id="file" name="file" accept=".csv">
+                </div>
+                <div class="button-group">
+                    <button type="button" class="btn btn-danger" id="fetch-new-data" disabled>Fetch New Data</button>
+                    <button type="submit" class="btn btn-primary">Analyze</button>
+                </div>
+
+                <!-- Add the progress bar here -->
+                <div id="progress-bar-container" class="progress mt-3" style="height: 25px; display: none;">
+                    <div id="progress-bar" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+                <!-- Progress bar ends here -->
+            </form>
+            <hr>
+
+            <!-- Summary and Leading Candidates Section -->
+            <div class="summary-vs-container">
+                <div class="summary-container">
+                    <h3>Summary</h3>
+                    <p id="summary"></p>
+                </div>
+
+                <div class="leading-candidates-section">
+                    <div class="leading-candidates-container">
+                        <div class="candidate-card">
+                            <img id="leading-candidate-1-image" src="/static/images/default.jpg" alt="Leading Candidate 1">
+                            <strong id="leading-candidate-1-name"></strong>
+                        </div>
+                        <div class="vs-text">VS</div>
+                        <div class="candidate-card">
+                            <img id="leading-candidate-2-image" src="/static/images/default.jpg" alt="Leading Candidate 2">
+                            <strong id="leading-candidate-2-name"></strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr>
+
+            <h3>Data</h3>
+            <table id="data-table" class="display" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>Candidate Name</th>
+                        <th>Party</th>
+                        <th class="column-green">Current %</th>
+                        <th class="column-purple">Sentiment Score</th>
+                        <th class="column-orange">Predicted %</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+    <!-- JavaScript section placed here -->
+    <script>
+        $(document).ready(function () {
+            $('#fetch-new-data').on('click', function () {
+                $('.progress').show();
+                $('#progress-bar').css('width', '0%').attr('aria-valuenow', 0);
+                let progressInterval = setInterval(function () {
+                    let currentProgress = parseFloat($('#progress-bar').attr('aria-valuenow'));
+                    let newProgress = Math.min(currentProgress + 0.1, 100);
+                    $('#progress-bar').css('width', newProgress + '%').attr('aria-valuenow', newProgress.toFixed(1));
+                    if (newProgress >= 100) {
+                        clearInterval(progressInterval);
+                    }
+                }, 100);
+
+                $.ajax({
+                    url: '/fetch-new-data',
+                    type: 'POST',
+                    success: function (response) {
+                        clearInterval(progressInterval);
+                        $('#progress-bar').css('width', '100%').attr('aria-valuenow', 100);
+                        if (response.error) {
+                            alert(response.error);
+                        } else {
+                            alert('Data fetched and processed successfully.');
+                        }
+                        setTimeout(function () {
+                            $('.progress').hide();
+                            $('#progress-bar').css('width', '0%').attr('aria-valuenow', 0);
+                        }, 1000);
+                    },
+                error: function() {
+                    clearInterval(progressInterval); // Stop the simulated progress
+
+                    alert('An error occurred while fetching new data.');
+                    // Hide the progress bar after a short delay
+                    setTimeout(function() {
+                        $('.progress').hide();
+                        $('#progress-bar').css('width', '0%').attr('aria-valuenow', 0);
+                    }, 1000);
+                }
+            });
+        });
+
+        // The rest of your existing code remains unchanged
+        $('#upload-form').on('submit', function (e) {
+                e.preventDefault();
+                var formData = new FormData(this);
+                $.ajax({
+                    url: '/upload',
+                    type: 'POST',
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    success: function (response) {
+                        if (response.error) {
+                            alert(response.error);
+                        } else {
+                            var sortedData = response.data.sort(function (a, b) {
+                                return b.predicted_pct - a.predicted_pct;
+                            });
+
+                            // Show top 3 candidates in the summary
+                            var topCandidates = sortedData.slice(0, 3);
+                            var summary = '<strong>Top 3 Candidates by Predicted Percentage:</strong><br>';
+                            topCandidates.forEach(function (candidate, index) {
+                                let star = index === 0 ? '⭐' : '';
+                                summary += `${index + 1}. ${candidate.candidate_name} (${candidate.party}): ${candidate.predicted_pct.toFixed(1)}% ${star}<br>`;
+                            });
+                            $('#summary').html(summary);
+
+                            // Update leading candidates' images and names
+                            $('#leading-candidate-1-image').attr('src', `/static/images/${topCandidates[0].candidate_name}.jpg`);
+                            $('#leading-candidate-1-name').html(`${topCandidates[0].candidate_name} ⭐`);
+                            $('#leading-candidate-2-image').attr('src', `/static/images/${topCandidates[1].candidate_name}.jpg`);
+                            $('#leading-candidate-2-name').html(topCandidates[1].candidate_name);
+
+                            var dataTable = $('#data-table').DataTable();
+                            dataTable.clear();
+
+                            response.data.forEach(function (row) {
+                                var sentimentScore = (row.average_sentiment_1 + row.average_sentiment_2) / 2;
+                                var candidateThumbnail = `<div class="candidate-cell"><img src="/static/images/${row.candidate_name}.jpg" class="candidate-thumbnail" alt="${row.candidate_name}" onerror="this.onerror=null;this.src='/static/images/default.jpg';"><a href="/candidate/${row.candidate_name}" class="candidate-link">${row.candidate_name}</a></div>`;
+                                dataTable.row.add({
+                                    candidate_name: candidateThumbnail,
+                                    party: row.party,
+                                    pct: row.pct,
+                                    sentiment_score: sentimentScore.toFixed(2),
+                                    predicted_pct: row.predicted_pct.toFixed(1)
+                                });
+                            });
+
+                            dataTable.draw();
+                        }
+                    }
+                });
+            });
+
+            var dataTable = $('#data-table').DataTable({
+                columns: [
+                    { data: 'candidate_name' },
+                    { data: 'party' },
+                    { data: 'pct', className: 'column-green' },
+                    { data: 'sentiment_score', className: 'column-purple' },
+                    { data: 'predicted_pct', className: 'column-orange' }
+                ]
+            });
+
+            $('#table-search').on('keyup', function () {
+                dataTable.search(this.value).draw();
+            });
+
+            $('.search-icon').on('click', function () {
+                dataTable.search($('#table-search').val()).draw();
+            });
+        });
+    </script>
+</body>
+
+</html>
