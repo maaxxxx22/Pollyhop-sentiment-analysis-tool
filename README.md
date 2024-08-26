@@ -120,10 +120,45 @@ http://127.0.0.1:5000/
 
 ---
 
+## API Keys
+
+This project requires API keys for accessing Bing News and Reddit data:
+
+- **Bing News API Key**: Register for the Bing Search API on the Azure Portal.
+- **Reddit API Key**: Create a Reddit app on the Reddit Developer Portal.
+
+Once you have the keys, you can input them directly in the corresponding scripts (`fetch_bing_data.py` and `fetch_reddit_data.py`).
+
+---
+
 ## Known Issues
 
 - **API Quotas**: The Bing API has usage limits which may result in quota exceeded errors. You can manage your API keys or switch to a new key if the limit is reached.
 - **Permission Errors**: When running the application, you might encounter file access issues due to operating system restrictions. Make sure that the application has sufficient permissions to read and write files.
+
+---
+
+## Project Structure
+
+Below is the structure of the `Pollyhop` project. This structure includes the necessary files and directories to run the sentiment analysis tool.
+
+Pollyhop/ ├── app.py # Main Flask application file that runs the web server and handles routes. ├── test4.py # Python script for combining polling and sentiment data, and calculating predictions. ├── candidate_latest_polls2.py # Script for fetching the latest polling data. ├── predict_party_votes_percentage4.py # Script for predicting party vote percentages based on historical data. ├── average_sentiment_by_state.py # Script for performing sentiment analysis by state. ├── bing_average_sentiment_by_state.py # Script for Bing News sentiment analysis by state. ├── requirements.txt # List of required Python packages for the project. ├── README.md # Documentation and instructions for the project. ├── static/ # Static files (e.g., CSS, images). │ ├── images/ # Image assets used by the app. │ └── styles.css # Custom CSS styling for the web app. ├── templates/ # HTML templates for the Flask app. │ ├── index.html # Main HTML file for the homepage. │ └── candidate.html # Detailed sentiment analysis view for each candidate. ├── data/ # Directory containing data-related files. │ ├── final_sentiment_score.csv # File for storing final combined sentiment scores. │ ├── combined_data_intermediate.csv # Intermediate file storing combined data. │ └── final_predicted_percentages_normalized.csv # Final predicted voting percentages. └── data1/ # Directory for storing additional sentiment and state-based data. ├── bing_average_sentiment_by_state.csv # Bing sentiment data by state. └── average_sentiment_by_state_candidate.csv # Reddit sentiment data by state.
+
+
+### Key Files and Directories
+
+- **app.py**: The main entry point of the Flask application, handling routing and API calls.
+- **test4.py**: The script responsible for processing and combining polling and sentiment data, and calculating final predicted percentages.
+- **candidate_latest_polls2.py**: Script that fetches the latest political polling data for candidates.
+- **predict_party_votes_percentage4.py**: Script that calculates historical vote percentages and applies resampling to predict future outcomes.
+- **average_sentiment_by_state.py**: Performs sentiment analysis on state-based Reddit data.
+- **bing_average_sentiment_by_state.py**: Analyzes sentiment from Bing News articles for each state.
+- **requirements.txt**: Contains a list of Python packages that need to be installed for the project to run.
+- **templates/**: Directory containing HTML files used to render the web pages in the Flask app.
+- **data/**: Directory for storing intermediate and final processed data from the application.
+- **data1/**: Directory containing datasets for state-based sentiment analysis from Bing and Reddit.
+
+This structure should help you understand where each part of the application resides, making it easier to navigate and extend the project if needed.
 
 ---
 
