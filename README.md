@@ -48,6 +48,7 @@ To install and run the Pollyhop Sentiment Analysis Tool on another machine, foll
    python -m venv venv
 
 4. **Activate the Virtual Environment: (On Windows)
+   ```bash 
    .\venv\Scripts\activate
 
 5. **Install Dependencies: 
