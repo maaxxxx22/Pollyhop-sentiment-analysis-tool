@@ -141,7 +141,7 @@ Once you have the keys, you can input them directly in the corresponding scripts
 ## Project Structure
 
 Below is the structure of the `Pollyhop` project. This structure includes the necessary files and directories to run the sentiment analysis tool.
-![Project Structure](static/images/projectstructureimg1.png)
+![Project Structure](Pollyhop - Demo/static/images/projectstructureimg1.png)
 
 
 ### Key Files and Directories
