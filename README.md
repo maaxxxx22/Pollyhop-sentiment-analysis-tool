@@ -19,7 +19,7 @@
     </ul>
   </div>
   <div style="flex: 1;">
-    <img src="demodash.jpg" alt="Real Dashboard" style="max-width: 100%; border: 2px solid #ddd; border-radius: 10px; padding: 10px;">
+    <img src="dash.jpg" alt="Real Dashboard" style="max-width: 100%; border: 2px solid #ddd; border-radius: 10px; padding: 10px;">
   </div>
 </div>
 
