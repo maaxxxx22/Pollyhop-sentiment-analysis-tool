@@ -23,6 +23,14 @@ Pollyhop is an application designed to predict political candidate performance b
 
 ---
 
+## Dashboard
+
+<div align="center">
+    <img src="demodash.jpg" alt="Demo Dashboard" style="width: 80%; border: 2px solid #ddd; border-radius: 10px; padding: 10px;">
+</div>
+
+---
+
 ## Features
 
 - Upload and analyze a sample CSV file.
