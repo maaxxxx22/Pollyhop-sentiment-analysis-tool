@@ -4,15 +4,24 @@
 
 ## Table of Contents
 
-- [Project Overview](#project-overview)
-- [Features](#features)
-- [Installation](#installation)
-- [Usage](#usage)
-- [Dependencies](#dependencies)
-- [API Keys](#api-keys)
-- [Project Structure](#project-structure)
-- [Contributing](#contributing)
-- [License](#license)
+<div style="display: flex; align-items: flex-start;">
+  <div style="flex: 1;">
+    <ul>
+      <li>[Project Overview](#project-overview)</li>
+      <li>[Features](#features)</li>
+      <li>[Installation](#installation)</li>
+      <li>[Usage](#usage)</li>
+      <li>[Dependencies](#dependencies)</li>
+      <li>[API Keys](#api-keys)</li>
+      <li>[Project Structure](#project-structure)</li>
+      <li>[Contributing](#contributing)</li>
+      <li>[License](#license)</li>
+    </ul>
+  </div>
+  <div style="flex: 1;">
+    <img src="demodash.jpg" alt="Real Dashboard" style="max-width: 100%; border: 2px solid #ddd; border-radius: 10px; padding: 10px;">
+  </div>
+</div>
 
 ---
 
