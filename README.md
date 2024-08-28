@@ -2,24 +2,17 @@
 
 **Pollyhop** is a comprehensive sentiment analysis and polling tool that uses real-time data from Bing News and Reddit. It analyzes sentiment for political candidates across different states and combines this data with polling data to predict election outcomes. The tool includes features for data scraping, sentiment analysis, data visualization, and prediction.
 
-<div style="display: flex; justify-content: space-between;">
-  <div style="flex: 1;">
-    ## Table of Contents
+## Table of Contents
 
-    - [Project Overview](#project-overview)
-    - [Features](#features)
-    - [Installation](#installation)
-    - [Usage](#usage)
-    - [Dependencies](#dependencies)
-    - [API Keys](#api-keys)
-    - [Project Structure](#project-structure)
-    - [Contributing](#contributing)
-    - [License](#license)
-  </div>
-  <div style="flex: 1; text-align: center;">
-    <img src="dash.jpg" alt="Real Dashboard" style="max-width: 100%; border: 2px solid #ddd; border-radius: 10px; padding: 10px;">
-  </div>
-</div>
+- [Project Overview](#project-overview)
+- [Features](#features)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Dependencies](#dependencies)
+- [API Keys](#api-keys)
+- [Project Structure](#project-structure)
+- [Contributing](#contributing)
+- [License](#license)
 
 ---
 
