@@ -2,23 +2,21 @@
 
 **Pollyhop** is a comprehensive sentiment analysis and polling tool that uses real-time data from Bing News and Reddit. It analyzes sentiment for political candidates across different states and combines this data with polling data to predict election outcomes. The tool includes features for data scraping, sentiment analysis, data visualization, and prediction.
 
-## Table of Contents
+<div style="display: flex; justify-content: space-between;">
+  <div style="flex: 1;">
+    ## Table of Contents
 
-<div style="display: flex; align-items: flex-start;">
-  <div style="flex: 1;">
-    <ul>
-      <li>[Project Overview](#project-overview)</li>
-      <li>[Features](#features)</li>
-      <li>[Installation](#installation)</li>
-      <li>[Usage](#usage)</li>
-      <li>[Dependencies](#dependencies)</li>
-      <li>[API Keys](#api-keys)</li>
-      <li>[Project Structure](#project-structure)</li>
-      <li>[Contributing](#contributing)</li>
-      <li>[License](#license)</li>
-    </ul>
+    - [Project Overview](#project-overview)
+    - [Features](#features)
+    - [Installation](#installation)
+    - [Usage](#usage)
+    - [Dependencies](#dependencies)
+    - [API Keys](#api-keys)
+    - [Project Structure](#project-structure)
+    - [Contributing](#contributing)
+    - [License](#license)
   </div>
-  <div style="flex: 1;">
+  <div style="flex: 1; text-align: center;">
     <img src="dash.jpg" alt="Real Dashboard" style="max-width: 100%; border: 2px solid #ddd; border-radius: 10px; padding: 10px;">
   </div>
 </div>
