@@ -16,6 +16,14 @@
 
 ---
 
+## Dashboard
+
+<div align="center">
+    <img src="dash.jpg" alt="Demo Dashboard" style="width: 80%; border: 2px solid #ddd; border-radius: 10px; padding: 10px;">
+</div>
+
+---
+
 ## Project Overview
 
 The **Pollyhop Sentiment Analysis Tool** fetches news articles from Bing News and discussions from Reddit, performs sentiment analysis on them, and combines the sentiment scores with polling data to provide insights and predictions on political candidate performance by state. This tool supports decision-making by providing both historical and real-time sentiment analysis, as well as predictions based on combined data sources.
