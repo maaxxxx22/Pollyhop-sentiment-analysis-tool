@@ -18,7 +18,7 @@
 
 ## Dashboard
 
-<div align="center">
+<div align="left">
     <img src="dash.jpg" alt="Demo Dashboard" style="width: 80%; border: 2px solid #ddd; border-radius: 10px; padding: 10px;">
 </div>
 
