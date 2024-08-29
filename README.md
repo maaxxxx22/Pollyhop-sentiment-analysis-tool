@@ -43,6 +43,7 @@ The **Pollyhop Sentiment Analysis Tool** fetches news articles from Bing News an
 
 ## Installation
 
+[Download the full Pollyhop app here](https://www.dropbox.com/scl/fi/3xg2bbq7js7twdia7ak5x/Pollyhop.zip?rlkey=i7hat9w6hbaj4tktd5uhknb9h&st=biyisjhl&dl=0)
 To install and run the Pollyhop Sentiment Analysis Tool on another machine, follow these steps:
 
 1. **Download and Unzip** the project:
